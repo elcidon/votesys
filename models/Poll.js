@@ -19,6 +19,10 @@ const PollSchema = Schema({
       title: {
         type: String,
         required: true
+      },
+      votes: {
+        type: Number,
+        default: 0
       }
     }
   ],
