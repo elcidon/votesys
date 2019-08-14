@@ -4,12 +4,16 @@
   "description": "Sistema de Votação",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server",
+    "dev": "nodemon server"
   },
   "author": "DevX3",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.17.1"
+    "config": "^3.2.2",
+    "express": "^4.17.1",
+    "express-validator": "^6.1.1",
+    "mongoose": "^5.6.9"
   },
   "devDependencies": {
     "nodemon": "^1.19.1"
