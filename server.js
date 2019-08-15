@@ -2,10 +2,9 @@ const express = require("express");
 const app = express();
 const connectDB = require("./config/db");
 
-// TODO CONECTAR COM O BANCO
+// CONECTAR COM O BANCO
 connectDB();
 
-// TODO INICAR MIDDLEWARES
 app.use(express.json({ extended: false }));
 
 app.get("/", (req, res) => console.info("App rodando!"));

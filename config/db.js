@@ -1,6 +1,12 @@
 const mongoose = require("mongoose");
 const config = require("config");
-const db = config.get("mongoURI");
+const env = config.get("ENVIRONMENT");
+
+let db = config.get("mongoURI");
+
+if (env === "dev") {
+  db = config.get("mongoLocalURI");
+}
 
 const connectDB = async () => {
   try {
@@ -11,7 +17,7 @@ const connectDB = async () => {
     });
     console.info("Mongo connected");
   } catch (err) {
-    console.err(err.message);
+    console.log(err.message);
     // Exit
     process.exit(1);
   }

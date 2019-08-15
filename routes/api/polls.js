@@ -5,11 +5,11 @@ const { check, validationResult } = require("express-validator");
 const Poll = require("../../models/Poll");
 
 /**
- * @route GET api/polls/list/:[all, opened, next, closed]
+ * @route GET api/polls/list/:[all, opened, next, closed]/
  * @desc  Get polls by status
  * @access public
  */
-router.get("/list/:status", async (req, res) => {
+router.get("/list/:status/", async (req, res) => {
   try {
     let polls = {};
     switch (req.params.status) {
@@ -47,6 +47,27 @@ router.get("/list/:status", async (req, res) => {
     }
     return res.status(200).json(polls);
   } catch (error) {
+    console.log(error.message);
+    return res.status(500).send("Server Error");
+  }
+});
+
+/**
+ * @route GET api/polls/get/:id
+ * @desc  Get a specific poll
+ * @access public
+ */
+router.get("/get/:id", async (req, res) => {
+  try {
+    const poll = await Poll.findById(req.params.id);
+
+    if (!poll) res.status(404).json({ msg: "Enquete não encontrada" });
+
+    return res.status(200).json(poll);
+  } catch (error) {
+    if (error.kind == "ObjectId") {
+      return res.status(404).json({ msg: "Enquete não encontrada" });
+    }
     console.log(error.message);
     return res.status(500).send("Server Error");
   }
@@ -92,18 +113,8 @@ router.post(
       // Cria objeto da enquete
       const pollFields = {
         title,
-        start: new Date(
-          start
-            .split("/")
-            .reverse()
-            .join("-")
-        ),
-        end: new Date(
-          end
-            .split("/")
-            .reverse()
-            .join("-")
-        ),
+        start,
+        end,
         options
       };
 
@@ -277,8 +288,6 @@ router.get("/votes/all/:poll_id/:option_id", async (req, res) => {
     return res.status(500).send("Server error");
   }
 });
-
-// TODO Retorna o total de pontos buscando pelo ID
 
 /**
  * @route GET api/polls/debug
