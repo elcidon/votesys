@@ -1,15 +1,17 @@
 import React, { Fragment } from "react";
+import { Link } from "react-router-dom";
 import Opened from "../polls/Opened";
 import Closed from "../polls/Closed";
 import NextPolls from "../polls/NextPolls";
-const PollsList = () => {
+
+const Home = () => {
   return (
     <Fragment>
       {/* BEGIN BOTÃO ADICIONAR ENQUETE  */}
       <div className="d-flex justify-content-end mt-3">
-        <a href="cadastro.html" className="btn btn-success">
+        <Link to="/criar-enquete" className="btn btn-success">
           Adicionar Enquete
-        </a>
+        </Link>
       </div>
       {/* END BOTÃO ADICIONAR ENQUETE  */}
 
@@ -73,4 +75,4 @@ const PollsList = () => {
   );
 };
 
-export default PollsList;
+export default Home;
